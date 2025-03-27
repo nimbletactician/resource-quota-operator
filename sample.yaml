@@ -1,0 +1,23 @@
+apiVersion: quotaenforcer.example.com/v1
+kind: ResourceQuotaEnforcer
+metadata:
+  name: namespace-quota-enforcer
+spec:
+  targetNamespace: production
+  resourceThresholds:
+    - resourceName: cpu
+      warningThresholdPercent: 75
+      criticalThresholdPercent: 90
+    - resourceName: memory
+      warningThresholdPercent: 80
+      criticalThresholdPercent: 95
+    - resourceName: pods
+      warningThresholdPercent: 70
+      criticalThresholdPercent: 85
+  actions:
+    sendWarningAlert: true
+    warningAlertChannel: "https://hooks.slack.com/services/TXXXXXXXX/BXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX"
+    sendCriticalAlert: true
+    criticalAlertChannel: "https://hooks.slack.com/services/TXXXXXXXX/BXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX"
+    blockNewDeployments: true
+  checkIntervalSeconds: 120
